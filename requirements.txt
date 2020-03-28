@@ -64,9 +64,6 @@ pyparsing==2.4.6
 pypiwin32==223
 PySocks==1.7.1
 python-dateutil==2.8.1
-pytz==2019.3
-pywin32==227
-PyYAML==5.2
 pyzbar==0.1.8
 requests==2.22.0
 requests-futures==1.0.0
