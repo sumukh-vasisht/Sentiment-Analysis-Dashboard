@@ -22,38 +22,36 @@
         <div class="topnav" id="myTopnav">
             <a href="/">Home</a>
             <a href="/about">About</a>
-            <a href="/stats" class="active">Tweet Stats</a>
+            <a href="/stats">Tweet Stats</a>
             <a href="/sentiment">Sentiment Analysis</a>
-            <a href="/covid19">COVID-19</a>
+            <a href="/covid19"  class="active">COVID-19</a>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
 
-        <h1>Twitter Handle Stats</h1>
-
-        <p>Twitter Handle : <strong>{{ handle }}</strong></p>
-
-        <br>
+        <h1>COVID-19 WORLD</h1>
 
         <div style="overflow-x:auto;">
             <table align="center" id="tweets">
                 <tr>
                     <!-- <th style="color: white;">SlNo</th> -->
                     <th style="color: white;">Tweet</th>
-                    <th style="color: white;">Tweet ID</th>
-                    <th style="color: white;">Length</th>
+                    <!-- <th style="color: white;">Tweet ID</th> -->
+                    <!-- <th style="color: white;">Length</th> -->
                     <th style="color: white;">Date and Time</th>
                     <th style="color: white;">Likes</th>
                     <th style="color: white;">Retweets</th>
+                    <!-- <th style="color: white;">Source URL</th> -->
                 </tr>
                 {% for index,row in confirm.iterrows() %}
                 <tr>
                     <!-- <td style="color: white;">{{ row[''] }}</td> -->
-                    <td style="color: white;">{{ row['Tweets'] }}</td>
-                    <td style="color: white;">{{ row['id'] }}</td>
-                    <td style="color: white;">{{ row['len'] }}</td>
+                    <td style="color: white;">{{ row['text'] }}</td>
+                    <!-- <td style="color: white;">{{ row['id'] }}</td> -->
+                    <!-- <td style="color: white;">{{ row['len'] }}</td> -->
                     <td style="color: white;">{{ row['date'] }}</td>
                     <td style="color: white;">{{ row['likes'] }}</td>
                     <td style="color: white;">{{ row['retweets'] }}</td>
+                    <!-- <td style="color: white;"><a href="{{row['url']}}">{{ row['url'] }}</a></td> -->
                 </tr>
                 {% endfor %}
             </table>
@@ -61,6 +59,8 @@
 
         <div class="footer">
             <p>Copyright ©SumukhVasishtS</p>
+            <a href="https://www.instagram.com/sumukh_vasisht/" target=_blank class="fa fa-instagram"></a>
+            <a href="https://www.github.com/sumukh-vasisht/" target=_blank class="fa fa-github"></a>
         </div>
 
     </body>

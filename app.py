@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 import urllib.request
 from flask import send_file
 from flask import g
+import tweepy
 from tweepy import API 
 from tweepy import Cursor
 from tweepy.streaming import StreamListener
@@ -148,7 +149,7 @@ def stats() :
 		twitter_client=TwitterClient()
 		tweet_analyzer=TweetAnalyzer()
 		api=twitter_client.get_twitter_client_api()
-		tweets=api.user_timeline(screen_name=twitterHandle,count=20)
+		tweets=api.user_timeline(screen_name=twitterHandle,count=100)
 		df=tweet_analyzer.tweets_to_data_frame(tweets)
 		message=df.head(tweetCount)
 		print(df.head(tweetCount))
@@ -172,6 +173,42 @@ def senti() :
         message=df.head(tweetCount)
         return render_template("showSentiment.html",confirm=message,handle=twitterHandle)
     return render_template("senti.html")
+
+@app.route("/covid19")
+def covid19() : 
+	return render_template("covid19Options.html")
+
+@app.route("/covid19India")
+def covid19India() :
+    maxTweets=50
+    auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    api=tweepy.API(auth)
+    df = pd.DataFrame(data=[tweet.text for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)], columns=['text'])
+    df['date'] = np.array([tweet.created_at for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['likes'] = np.array([tweet.favorite_count for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['retweets'] = np.array([tweet.retweet_count for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['retweets'] = np.array([tweet.retweet_count for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['url'] = np.array([tweet.source_url for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    print(df)
+    message=df
+    return render_template("covid19.html",confirm=message)
+
+@app.route("/covid19World",methods=['GET','POST'])
+def covid19World() : 
+    maxTweets=50
+    auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    api=tweepy.API(auth)
+    df = pd.DataFrame(data=[tweet.text for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)],columns=['text'])
+    df['date'] = np.array([tweet.created_at for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['likes'] = np.array([tweet.favorite_count for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['retweets'] = np.array([tweet.retweet_count for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['retweets'] = np.array([tweet.retweet_count for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    df['url'] = np.array([tweet.source_url for tweet in tweepy.Cursor(api.search,q="#covid19",rpp=100).items(maxTweets)])
+    print(df)
+    message=df
+    return render_template("covid19.html",confirm=message)
 
 if __name__ == "__main__":
 	app.run(debug=True)
