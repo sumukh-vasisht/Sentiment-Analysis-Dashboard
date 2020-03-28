@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Twitter Analyzer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../static/index.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+        <div class="topnav" id="myTopnav">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/stats">Tweet Stats</a>
+            <a href="/sentiment" class="active">Sentiment Analysis</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <h1>Sentiment Analysis</h1>
+
+        <!-- <p>Analyse sentiment of tweets of different Twitter Handles</p> -->
+
+        <br>
+
+        <form action="/sentiment" id="takeInput" method="POST">
+            <p class="formLabel">Enter the Twitter Handle</p>
+            <input type="text" id="twitterHandle" name="twitterHandle" placeholder="Enter the twitter handle">
+            <p class="formLabel">Enter the Number of tweets to Analyse</p>
+            <input type="text" id="count" name="count" placeholder="Enter the count">
+            <input type="submit">
+        </form>
+
+        <div class="footer">
+            <p>Copyright ©SumukhVasishtS</p>
+        </div>
+
+    </body>
+</html>
